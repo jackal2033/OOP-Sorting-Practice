@@ -13,4 +13,6 @@ using namespace std;
 
 void check(const vector<Task>& taskVec, char order);
 void printVector(const vector<Task>& taskVec);
+void selectionSort(vector<Task>& taskVec);
+
 #endif

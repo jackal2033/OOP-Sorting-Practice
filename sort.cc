@@ -11,8 +11,10 @@ int main()
 		tmpTask.setValue(rand() % 100);
 		taskVector.push_back(tmpTask);
 	}
-	printVector(taskVector);
 
+	selectionSort(taskVector);
+	check(taskVector, 'a');
+	printVector(taskVector);
 	return 2033;
 }
 
@@ -23,21 +25,23 @@ void check(const vector<Task>& taskVec, char order)
 	{
 		if(order == 'a')
 		{
-			if((*task).getValue() < (*(task + 1)).getValue())
+			if((*task).getValue() > (*(task + 1)).getValue())
 			{
 				cerr<<"Not sorted"<<endl;
-				exit(-1);
+				return;
 			}
 		}
 		else
 		{
-			if((*task).getValue() > (*(task + 1)).getValue())
+			if((*task).getValue() < (*(task + 1)).getValue())
 			{
 				cerr<<"Not sorted"<<endl;
-				exit(-1);
+				return;
 			}
 		}
 	}
+
+	cerr<<"Vector is properly sorted"<< endl;
 }
 
 void printVector(const vector<Task>& taskVec)
@@ -46,5 +50,21 @@ void printVector(const vector<Task>& taskVec)
 	{
 		cout<< (*it).getValue() << ", "
 			<<(*it).getPriority() << endl;
+	}
+}
+
+void selectionSort(vector<Task>& taskVec)
+{
+	auto smallest = taskVec.begin();
+
+	for (auto it = taskVec.begin(); it != taskVec.end() -1; it++)
+	{
+		smallest = it;
+		for(auto it2 = it + 1; it2 != taskVec.end(); it2++)
+		{
+			if((*it2).getValue() < (*smallest).getValue())
+				smallest = it2;
+		}
+		iter_swap(it, smallest);
 	}
 }
